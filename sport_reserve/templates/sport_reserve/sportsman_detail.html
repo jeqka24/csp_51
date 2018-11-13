@@ -1,0 +1,27 @@
+{% extends 'sport_reserve\base.html' %}
+{% block content %}
+    <h1><a href="{% url 'sportsmen' %}" alt="Вернуться к списку спортсменов">Спортсмены</a></h1>
+
+<table>
+<tr>
+    <th>ФИО</th>
+    <th>Возраст</th>
+    <th>Название спорта</th>
+    <th>Разряд/звание</th>
+    <th>Срок окончания трудового договора</th>
+    <th>Срок окончания параллельного зачета</th>
+    <th>Текущий тренер</th>
+    <th>Физкультурно-спортивная организация</th>
+</tr>
+    <tr>
+        <td><a href="{{ object.id }}">{{ object.FIO }}</a></td>
+        <td>{{ object.age}}</td>
+        <td>{{ object.Sport.Name }}</td>
+        <td>{{ object.Degree }}</td>
+        <td>{{ object.AssignmentDate|date }}</td>
+        <td>{{ object.ParallelDate|date }}</td>
+        <td>{{ object.PersonalTrainer.FIO }}</td>
+        <td>{{ object.Organisation }}</td>
+    </tr>
+</table>
+{% endblock %}

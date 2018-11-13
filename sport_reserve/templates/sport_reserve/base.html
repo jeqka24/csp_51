@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    {% block title %}
+    <title>Спортивный резерв Мурманской области</title>
+    {% endblock %}
+    <style>
+        table td {  border: 1px black solid;margin: 0; }
+        th { background-color: #5b80b2;}
+        td { padding: 2px; }
+    </style>
+
+</head>
+
+<body>
+{% block header %}
+<a href="{% url 'home' %}"><h1>Домой</h1></a>
+{%  endblock %}
+
+{% block content %}
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
+</body>
+</html>

@@ -1,0 +1,33 @@
+{% extends 'sport_reserve\base.html' %}
+{% block content %}
+    <h1><a href="{% url 'trainers' %}" alt="Вернуться к списку тренеров">Тренеры</a></h1>
+
+<table>
+<tr>
+    <th>ФИО</th>
+    <th>Телефон 1</th>
+    <th>Телефон 2</th>
+    <th>E-mail</th>
+</tr>
+    <tr>
+        <td><a href="{{ object.id }}">{{ object.FIO }}</a></td>
+        <td>{{ object.Phone1}}</td>
+        <td>{{ object.Phone1}}</td>
+        <td>{{ object.Email}}</td>
+    </tr>
+</table>
+
+<h1>Спортсмены, занимающиеся у данного тренера</h1>
+<table>
+{% for sportsman in sportsman_list %}
+    <tr>
+        <td><a href="{% url 'sportsman-detail' sportsman.id %}">{{ sportsman.FIO }}</a></td>
+        <td>{{ sportsman.age}}</td>
+        <td>{{ sportsman.Sport.Name }}</td>
+        <td>{{ sportsman.Degree }}</td>
+    </tr>
+{% empty %}
+    <p>В данный момент тренер не занимается ни одним из спортсменов</p>
+{% endfor %}
+</table>
+{% endblock %}
