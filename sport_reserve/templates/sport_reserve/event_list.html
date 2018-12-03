@@ -3,6 +3,25 @@
 {% block content %}
 <table>
 <tr>
+    <th>Название</th>
+    <th>Место проведения</th>
+    <th>Вид спорта</th>
+    <th>Тип соревнования</th>
+    <th>Начало мероприятия</th>
+    <th>Конец мероприятия</th>
+</tr>
+{% for event in object_list %}
+    <tr>
+        <td><a href="{% url 'event-detail' event.id %}">{{ event.Name }}</a></td>
+        <td>{{ event.Place }}</td>
+        <td>{{ event.Sport }}</td>
+        <td>{{ event.Type }}</td>
+        <td>{{ event.DateStart }}</td>
+        <td>{{ event.DateEnd }}</td>
+
+    </tr>
+{% endfor %}
+
 </table>
 
 {% endblock %}

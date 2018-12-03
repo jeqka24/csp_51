@@ -20,8 +20,35 @@
         <td>{{ object.Degree }}</td>
         <td>{{ object.AssignmentDate|date }}</td>
         <td>{{ object.ParallelDate|date }}</td>
-        <td>{{ object.PersonalTrainer.FIO }}</td>
+        <td>
+            {% if object.PersonalTrainer %}
+                <a href="{% url 'trainer-detail' object.PersonalTrainer_id %}">{{ object.PersonalTrainer.FIO }}</a>
+            {% endif %}
+        </td>
         <td>{{ object.Organisation }}</td>
     </tr>
 </table>
+
+    <div><br></div>
+    <table id="results">
+    <tr>
+        <th>Мероприятие</th>
+        <th>Дата</th>
+        <th>Группа</th>
+        <th>Место</th>
+        <th>Количество участников</th>
+    </tr>
+    {% for result in results_list %}
+    <tr>
+        <td>{{ result.Event.Name }}</td>
+        <td>{{ result.Date }}</td>
+        <td>{{ result.Group }}</td>
+        <td>{{ result.Place }}</td>
+        <td>{{ result.Competitors }}</td>
+    </tr>
+    {% empty %}
+        <tr><td>Нет результатов.<td></tr>
+    {% endfor %}
+    </table>
+
 {% endblock %}

@@ -1,4 +1,54 @@
 {% extends 'sport_reserve\base.html' %}
 {% block content %}
-    <h1><a href="{% url 'trainers' %}" alt="Вернуться к списку событий">События</a></h1>
+    <h1><a href="{% url 'events' %}" alt="Вернуться к списку событий">События</a></h1>
+
+    <table id="events">
+    <tr>
+    <th>Название</th>
+        <td>{{ event.Name }}</td>
+    </tr>
+    <tr>
+    <th>Место проведения</th>
+        <td>{{ event.Place }}</td>
+    </tr>
+    <tr>
+    <th>Вид спорта</th>
+        <td>{{ event.Sport }}</td>
+    </tr>
+    <tr>
+    <th>Тип соревнования</th>
+        <td>{{ event.Type }}</td>
+    </tr>
+    <tr>
+    <th>Начало мероприятия</th>
+        <td>{{ event.DateStart }}</td>
+    </tr>
+    <tr>
+    <th>Конец мероприятия</th>
+        <td>{{ event.DateEnd }}</td>
+    </tr>
+    </table>
+    <h2>Результаты</h2>
+
+    <table id="results">
+    <tr>
+        <th>Дата</th>
+        <th>Группа</th>
+        <th>Спортсмен</th>
+        <th>Место</th>
+        <th>Количество участников</th>
+    </tr>
+    {% for result in results_list %}
+    <tr>
+        <td>{{ result.Date }}</td>
+        <td>{{ result.Group }}</td>
+        <td><a href="{% url 'sportsman-detail' result.Sportsman_id %}">{{ result.Sportsman }}</a></td>
+        <td>{{ result.Place }}</td>
+        <td>{{ result.Competitors }}</td>
+    </tr>
+    {% empty %}
+        <tr><td>Нет результатов.<td></tr>
+    {% endfor %}
+    </table>
+
 {% endblock %}

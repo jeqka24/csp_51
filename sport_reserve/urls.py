@@ -12,7 +12,7 @@ urlpatterns = [
     re_path(r'^trainer/?$', views.TrainersView.as_view(), name='trainers'),
 
     re_path(r'^event/(?P<pk>\d+)$', views.EventView.as_view(), name='event-detail'),
-    re_path(r'^event/?$', views.EventsView.as_view(), name='event'),
+    re_path(r'^event/?$', views.EventsView.as_view(), name='events'),
 
     #    path('sportsman', include(views.SportsmanView().urls)),
 ]

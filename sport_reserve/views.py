@@ -18,6 +18,13 @@ class SportsmenView(ListView):
 class SportsmanView(DetailView):
     model = Sportsman
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['results_list'] = Result.objects.filter(Sportsman_id=kwargs['object'].id).order_by('-Date')
+        return context
+
+
 
 class TrainersView(ListView):
     model = Trainer
@@ -41,47 +48,45 @@ class EventsView(ListView):
 
 class EventView(DetailView):
     model = Event
-#    def get_context_data(self, **kwargs):
-#        context = super().get_context_data(**kwargs)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
 
-#        context['sportsman_list'] = Result.objects.filter(=kwargs['object'].id).order_by('FIO')
-#        return context
+        context['results_list'] = Result.objects.filter(Event=kwargs['object'].id).order_by('Date')
+        return context
 
 
 class ResultsView(ListView):
     model = Result
 
+
 class ResultView(DetailView):
     model = Result
     queryset = Result
 
+
 class indexView(TemplateView):
     template_name = "index.html"
 
-
-def SportAndSportsman(request):
-    pass
-
-
-# Квартальный отчет отдела
-def QuaterlyReport(request):
-    pass
 
 
 # Недельный отчет отдела
 def WeekdlyReport(request):
     pass
 
-
-# Отчет по призёрам ПР и спартакиад
-def WinnersReport(request):
-    result = models.Result.objects.filter()
+# Квартальный отчет отдела
+def QuaterlyReport(request):
     pass
 
+
+def WinterSportReport(request):
+    pass
 
 # Лучшие результаты за квартал
 def QuaterlyBestReport(request):
     pass
 
+# Отчет по призёрам ПР и спартакиад
+def WinnersReport(request):
+    pass
 
 #
