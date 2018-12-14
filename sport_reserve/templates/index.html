@@ -1,16 +1,18 @@
 {% extends 'sport_reserve\base.html' %}
 {% block content %}
-    <p>
-    <a href="sportsman"><button>Спортсмены</button></a>
-    <a href="trainer"><button>Тренеры</button></a>
-    <a href="event"><button>События</button></a>
-    </p>
-    <h1>Отчеты</h1>
-    <ul>
-    <li><a href="#"><button>Отчет отдела за неделю</button></a></li>
-    <li><a href="#"><button>Отчет отдела за квартал</button></a></li>
-    <li><a href="#"><button>Отчет отдела - зимние виды спорта за сезон</button></a></li>
-    <li><a href="#"><button>Отчет отдела летние виды спорта только приоритетные</button></a></li>
-    <li><a href="#"><button>Отчет по призёрам ПР и олимпиад - за период</button></a></li>
+    <h2>На текущий момент учтено:</h2>
+        <ul class="">
+            <li>Спортсменов - <a href="{% url 'sportsmen' %}">{{ sportsmen_count }}</a></li>
+            <li>Тренеров - <a href="{% url 'trainers' %}">{{ trainers_count }}</a></li>
+            <li>Спортивных мероприятий - <a href="{% url 'events' %}">{{ events_count }}</a></li>
+            <li>Результатов - <a href="{% url 'results' %}">{{ results_count }}</a></li>
+        </ul>
+    <h2>Отчеты</h2>
+    <ul class="">
+    <li class="nav-item"><a href="#">Отчет отдела за неделю</a></li>
+    <li class="nav-item"><a href="#">Отчет отдела за квартал</a></li>
+    <li class="nav-item"><a href="#">Отчет отдела - зимние виды спорта за сезон</a></li>
+    <li class="nav-item"><a href="#">Отчет отдела летние виды спорта только приоритетные</a></li>
+    <li class="nav-item"><a href="#">Отчет по призёрам ПР и олимпиад - за период</a></li>
     </ul>
 {% endblock %}

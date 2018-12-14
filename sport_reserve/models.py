@@ -8,7 +8,7 @@ from datetime import date
 
 
 def get_photo_path(instance, filename):
-    return opj("images", str(instance.id), filename)
+    return opj("photos", str(instance.id), filename)
 
 
 class Trainer(Model):
@@ -82,6 +82,11 @@ class Event(Model):
 
     Groups = ManyToManyField(Group, verbose_name="Группы",
                              help_text="Группы")
+
+    AssignedTrainers = ManyToManyField(Trainer, verbose_name="Назначенный тренер",
+                                       help_text="Назначенный тренер")
+    AssignedSportsmen = ManyToManyField(Sportsman, verbose_name="Назначенный спортсмен",
+                                        help_text="Назначенные спортсмены")
 
     Stage = CharField(verbose_name="Этап соревнований", null=True, blank=True, max_length=30)
     DateStart = DateField(verbose_name="Дата начала мероприятия")

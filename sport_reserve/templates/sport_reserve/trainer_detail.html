@@ -2,7 +2,7 @@
 {% block content %}
     <h1><a href="{% url 'trainers' %}" alt="Вернуться к списку тренеров">Тренеры</a></h1>
 
-<table>
+<table class="table table-sm table-nowrap table-hover">
 <tr>
     <th>ФИО</th>
     <th>Телефон 1</th>
@@ -10,24 +10,41 @@
     <th>E-mail</th>
 </tr>
     <tr>
-        <td><a href="{{ object.id }}">{{ object.FIO }}</a></td>
+        <td>{{ object.FIO }}</td>
         <td>{{ object.Phone1}}</td>
         <td>{{ object.Phone1}}</td>
         <td>{{ object.Email}}</td>
     </tr>
 </table>
 
-<h1>Спортсмены, занимающиеся у данного тренера</h1>
-<table>
-{% for sportsman in sportsman_list %}
+<h1>Результаты спортсменов, занимающиеся у данного тренера</h1>
+<table id="result" class="display table table-sm table-nowrap table-hover">
+<thead>
+    <th>ФИО</th>
+    <th>Дата</th>
+    <th>Мероприятие</th>
+    <th>Место</th>
+    <th>Участников в группе</th>
+</thead>
+<tbody>
+{% for result in result_list %}
     <tr>
-        <td><a href="{% url 'sportsman-detail' sportsman.id %}">{{ sportsman.FIO }}</a></td>
-        <td>{{ sportsman.age}}</td>
-        <td>{{ sportsman.Sport.Name }}</td>
-        <td>{{ sportsman.Degree }}</td>
+        <td><a href="{% url 'sportsman-detail' result.Sportsman_id %}">{{ result.Sportsman.FIO }}</a></td>
+        <td>{{ result.Date }}</td>
+        <td><a href="{% url 'event-detail' result.Event_id %}">{{ result.Event }}</a></td>
+        <td>{{ result.Place }}</td>
+        <td>{{ result.Competitors }}</td>
     </tr>
 {% empty %}
     <p>В данный момент тренер не занимается ни одним из спортсменов</p>
 {% endfor %}
+</tbody>
 </table>
+{% for sportsman in sportsman_list %}
+    {{ sportsman }}
+
+{% empty %}
+{% endfor %}
+
+
 {% endblock %}

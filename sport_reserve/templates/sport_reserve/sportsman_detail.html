@@ -1,8 +1,9 @@
 {% extends 'sport_reserve\base.html' %}
 {% block content %}
-    <h1><a href="{% url 'sportsmen' %}" alt="Вернуться к списку спортсменов">Спортсмены</a></h1>
 
-<table>
+    <h2><a href="{% url 'sportsmen' %}" alt="Вернуться к списку спортсменов">Спортсмены</a></h2>
+
+<table class="table table-sm table-nowrap table-hover">
 <tr>
     <th>ФИО</th>
     <th>Возраст</th>
@@ -30,7 +31,16 @@
 </table>
 
     <div><br></div>
-    <table id="results">
+{% if user.is_authenticated %}
+    <div><a href="#">Добавить еще один результат:&nbsp;<i class="fa fa-lg fa-plus-circle"></i></a></div>
+    <div><br></div>
+{% endif %}
+
+    <div><br></div>
+    <h2>Результаты ({{ results_list.count }})</h2>
+    <div><br></div>
+
+    <table id="results" class="table table-striped table-sm table-nowrap table-hover">
     <tr>
         <th>Мероприятие</th>
         <th>Дата</th>
@@ -40,7 +50,7 @@
     </tr>
     {% for result in results_list %}
     <tr>
-        <td>{{ result.Event.Name }}</td>
+        <td><a href="{% url 'event-detail' result.Event_id %}">{{ result.Event.Name }}</a></td>
         <td>{{ result.Date }}</td>
         <td>{{ result.Group }}</td>
         <td>{{ result.Place }}</td>

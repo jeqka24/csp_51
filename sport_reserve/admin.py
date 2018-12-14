@@ -2,10 +2,10 @@ from django.contrib import admin
 
 from import_export.admin import ImportExportActionModelAdmin
 from import_export.formats import base_formats
-from .exports import SportsmanResource, ResultResource, TrainerResource
 
 from django_extensions.admin import ForeignKeyAutocompleteAdminMixin
 
+from .exports import SportsmanResource, ResultResource, TrainerResource
 from .models import Event, Sportsman, Trainer, Result
 
 
@@ -17,6 +17,7 @@ admin.site.empty_value_display = '- нет -'
 # Basic registering
 
 admin.autodiscover()
+
 
 # Custom forms for tables
 
@@ -48,12 +49,18 @@ class TrainerAdmin(CommonAdmin,  ForeignKeyAutocompleteAdminMixin, ImportExportA
 
 
 class EventAdmin(CommonAdmin, ForeignKeyAutocompleteAdminMixin, ImportExportActionModelAdmin):
-    autocomplete_fields = ["Sport", "Place", "Sport"]
+    autocomplete_fields = ["Sport", "Place"]
     list_display = ["Name", "Stage",  "Type", "Sport", ]
     list_filter = ["Type", "Sport", "DateStart", "DateEnd"]
-    filter_horizontal = ["Groups", ]
+    filter_horizontal = ["AssignedTrainers", "AssignedSportsmen"]
     inlines = [ResultEventInline]
     search_fields = ["Name", "Place__Name"]
+    fieldsets = [
+        ("Вид спорта и тип соревнований", {"fields": ["Sport", "Type"]}),
+        ("Место и время", {"fields": ["EKP", "Place", "DateStart", "DateEnd"]}),
+        ("Участники", {"fields": (("AssignedTrainers", "AssignedSportsmen"),)}),
+        ("Группы", {"fields": ("Groups",)}),
+    ]
 
 
 class SportsmanAdmin(CommonAdmin,  ForeignKeyAutocompleteAdminMixin, ImportExportActionModelAdmin):
@@ -87,3 +94,5 @@ admin.site.register(Event, EventAdmin)
 admin.site.register(Result, ResultAdmin)
 admin.site.register(Trainer, TrainerAdmin)
 admin.site.register(Sportsman, SportsmanAdmin)
+
+

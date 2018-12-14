@@ -1,39 +1,33 @@
 {% extends 'sport_reserve\base.html' %}
 {% block content %}
-<h1>Спортсмены</h1>
+<h2>Спортсмены ({{ object_list.count }})</h2>
 
-<table>
-<tr>
+<table id="result" class="table table-striped table-bordered table-hover">
+<thead>
     <th>ФИО</th>
     <th>Возраст</th>
     <th>Название спорта</th>
     <th>Разряд/звание</th>
-    <th>Срок окончания трудового договора</th>
-    <th>Срок окончания параллельного зачета</th>
     <th>Текущий тренер</th>
-    <th>Физкультурно-спортивная организация</th>
-</tr>
+</thead>
+<tbody>
 {% for sportsman in object_list %}
     <tr>
         <td><a href="{% url 'sportsman-detail' sportsman.id %}">{{ sportsman.FIO }}</a></td>
         <td>{{ sportsman.age}}</td>
         <td>{{ sportsman.Sport.Name }}</td>
         <td>{{ sportsman.Degree }}</td>
-        <td>{{ sportsman.AssignmentDate|date }}</td>
-        <td>{{ sportsman.ParallelDate|date }}</td>
         <td>
             {% if sportsman.PersonalTrainer %}
                 <a href="{% url 'trainer-detail' sportsman.PersonalTrainer_id %}">{{ sportsman.PersonalTrainer.FIO }}</a>
             {% endif %}
             </td>
-        <td>{{ sportsman.Organisation }}</td>
     </tr>
 {% empty %}
     <tr><td>Нет спортсменов.<td></tr>
 {% endfor %}
+</tbody>
 </table>
 
-    <div></div>
-
-
+<div></div>
 {% endblock %}

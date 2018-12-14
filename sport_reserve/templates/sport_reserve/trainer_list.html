@@ -1,14 +1,14 @@
 {% extends 'sport_reserve\base.html' %}
 {% block content %}
 
-<h1>Тренеры</h1>
-<table>
-<tr>
+<h2>Тренеры ({{ object_list.count }})</h2>
+<table id="result" class="table table-sm table-nowrap table-hover">
+<thead>
     <th>ФИО</th>
     <th>Телефон 1</th>
     <th>Телефон 2</th>
     <th>E-mail</th>
-</tr>
+</thead><tbody>
         {% for trainer in object_list %}
         <tr>
         <td><a href="{% url 'trainer-detail' trainer.id %}">{{ trainer.FIO }}</a></td>
@@ -19,5 +19,6 @@
         {% empty %}
         <tr><td colspan="4">Информация о тренерах отсутствует</td></tr>
         {% endfor %}
+</tbody>
 </table>
 {% endblock %}
