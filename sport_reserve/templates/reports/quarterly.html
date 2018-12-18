@@ -1,0 +1,52 @@
+{% extends 'sport_reserve/base.html' %}
+{% block content %}
+    <div>{{ year }}:{{ month }}</div>
+    <div>Начало периода: {{ Date_start }}</div><div>Конец периода: {{ Date_end }}</div>
+<div id="filter" class="filter">
+    <table>
+        <tr>
+            <td width="10%">Год:</td>
+            <td>
+                <a href="{{ quarter }}-{{ year|add:"-1"  }}"><button>{{ year|add:"-1" }}</button></a>
+                <a href="{{ quarter }}-{{ year }}"><button>{{ year }}</button></a>
+                <a href="{{ quarter }}-{{ year|add:"+1"  }}"><button>{{ year|add:"+1" }}</button></a>
+            </td>
+        </tr>
+        <tr>
+            <td width="10%">
+                Квартал:
+            </td>
+            <td>
+                {% for q in quarters %}<a href="{{ q }}-{{ year }}"><button>{{ q }}</button></a>{% endfor %}
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+<table id="result" class="table table-striped table-bordered table-hover">
+<thead>
+        <th>Мероприятие</th>
+        <th>Дата</th>
+        <th>ФИО</th>
+        <th>Группа</th>
+        <th>Место</th>
+        <th>Количество участников</th>
+</thead>
+<tbody>
+{% for result in results %}
+    <tr>
+        <td><a href="{% url 'event-detail' result.Event_id %}">{{ result.Event.Name }}</a> ({{ result.Event.Sport.Name }})</td>
+        <td>{{ result.Date }}</td>
+        <td><a href="{% url 'sportsman-detail' result.Sportsman_id %}">{{ result.Sportsman.FIO }}</a></td>
+        <td>{{ result.Group }}</td>
+        <td>{{ result.Place }}</td>
+        <td>{{ result.Competitors }}</td>
+    </tr>
+{% empty %}
+
+{% endfor %}
+</tbody>
+</table>
+
+{% endblock %}

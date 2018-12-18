@@ -9,10 +9,10 @@
         </ul>
     <h2>Отчеты</h2>
     <ul class="">
-    <li class="nav-item"><a href="#">Отчет отдела за неделю</a></li>
-    <li class="nav-item"><a href="#">Отчет отдела за квартал</a></li>
-    <li class="nav-item"><a href="#">Отчет отдела - зимние виды спорта за сезон</a></li>
-    <li class="nav-item"><a href="#">Отчет отдела летние виды спорта только приоритетные</a></li>
-    <li class="nav-item"><a href="#">Отчет по призёрам ПР и олимпиад - за период</a></li>
+    <li class="nav-item"><a href="{% url 'report_weekly'  %}">Отчет отдела за неделю</a></li>
+    <li class="nav-item"><a href="{% url 'report_quarterly'  %}">Отчет отдела за квартал</a></li>
+    <li class="nav-item"><a href="{% url 'report_winter'  %}">Отчет отдела - зимние виды спорта за сезон</a></li>
+    <li class="nav-item"><a href="{% url 'report_summer'  %}">Отчет отдела летние виды спорта только приоритетные</a></li>
+    <li class="nav-item"><a href="{% url 'report_champions'  %}">Отчет по призёрам ПР и олимпиад - за период</a></li>
     </ul>
 {% endblock %}

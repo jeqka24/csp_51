@@ -14,11 +14,12 @@
     {% endblock %}
 
     <style>
-        .table { width: 99%}
+        table { width: 99%}
         table td {  border: 1px black solid;margin: 0;}
         th { background-color: #5580bb; color: orange; font-weight: bold; font-size: 1.15em; alignment: center; padding: 0.25em;}
         td { padding: 0.15em; }
         a { font-weight: bolder; font-size: 1em;}
+        body { alignment: center; margin-left: 1%; margin-right: 1%;}
     </style>
 
 </head>
@@ -45,7 +46,12 @@
 <div class="navbar-nav nav-flex-icons">
 {% if user.is_authenticated %}
     {% url 'admin:logout' as logout %}
-    Текущий пользователь: {{ user.first_name|lower|capfirst }} {{ user.last_name|lower|capfirst }} ({{ user }}).&nbsp;<a href="{{ logout }}?next={{request.path }}"><button class="nav-item"><i class="fa fa-lg fa-lock"></i>&nbsp;Выйти</button></a>
+    {% url 'admin:index' as adm %}
+
+    Текущий пользователь: {{ user.first_name|lower|capfirst }} {{ user.last_name|lower|capfirst }} ({{ user }}).&nbsp;
+    <a href="{{ adm }}"><button><i class="fa fa-lg fa-user"></i></button></a>
+    <a href="{{ logout }}?next={{request.path }}"><button class="nav-item"><i class="fa fa-lg fa-lock"></i>&nbsp;Выйти</button></a>
+
 {% else %}
     {% url 'admin:login' as login %}
     <a href="{{ login }}?next={{request.path }}"><button class="nav-item"><i class="fa fa-lg fa-user"></i>&nbsp;Войти</button></a>
@@ -74,7 +80,9 @@
   $(document).ready(function () {
   $('#result').DataTable(
       {
-          language: {
+            buttons: [ 'copy', 'excel', 'pdf' ],
+
+            language: {
     "decimal":        "",
     "infoPostFix":    "",
     "thousands":      "",

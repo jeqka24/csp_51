@@ -1,0 +1,90 @@
+{% extends 'sport_reserve/base.html' %}
+{% block content %}
+
+    <div>{{ year }}:{{ week }}::{{ lastweek }}</div>
+
+
+<div>Начало недели: {{ Date_start }}</div>
+<div>Конец недели: {{ Date_end }}</div>
+
+<div id="filter" class="filter">
+    <table>
+        <tr>
+            <td width="10%">Год:</td>
+            <td>
+                <a href="{{ week }}-{{ year|add:"-1"  }}"><button>{{ year|add:"-1" }}</button></a>
+                <a href="{{ week }}-{{ year }}"><button>{{ year }}</button></a>
+                <a href="{{ week }}-{{ year|add:"+1"  }}"><button>{{ year|add:"+1" }}</button></a>
+            </td>
+        </tr>
+        <tr>
+            <td width="10%">
+                Неделя:
+            </td>
+            <td>
+                <a href="1-{{ year }}"><button>1</button></a>
+                {% if week == 1 %}
+                    <a href="2-{{ year }}"><button>2</button></a>
+                {% endif %}
+                {% if week == 2 %}
+                    <a href="2-{{ year }}"><button>2</button></a>
+                    <a href="3-{{ year }}"><button>3</button></a>
+                {% endif %}
+                {% if week == 3 %}
+                    <a href="2-{{ year }}"><button>2</button></a>
+                    <a href="3-{{ year }}"><button>3</button></a>
+                    <a href="4-{{ year }}"><button>4</button></a>
+                {% endif %}
+
+                {% if week > 3 and week < lastweek|add:"-2" %}
+                    ...
+                    <a href="{{ week|add:"-1" }}-{{ year }}"><button>{{ week|add:"-1" }}</button></a>
+                    <a href="{{ week }}-{{ year }}"><button>{{ week }}</button></a>
+                    <a href="{{ week|add:"1" }}-{{ year }}"><button>{{ week|add:"1" }}</button></a>
+                    ...
+                {% endif %}
+                {% if week == lastweek|add:"-2" %}
+                    <a href="{{ lastweek|add:"-3" }}-{{ year }}"><button>{{ lastweek|add:"-3" }}</button></a>
+                    <a href="{{ lastweek|add:"-2" }}-{{ year }}"><button>{{ lastweek|add:"-2" }}</button></a>
+                    <a href="{{ lastweek|add:"-1" }}-{{ year }}"><button>{{ lastweek|add:"-1" }}</button></a>
+                {% endif %}
+                {% if week == lastweek|add:"-1" %}
+                    <a href="{{ lastweek|add:"-2" }}-{{ year }}"><button>{{ lastweek|add:"-2" }}</button></a>
+                    <a href="{{ lastweek|add:"-1" }}-{{ year }}"><button>{{ lastweek|add:"-1" }}</button></a>
+                {% endif %}
+                {% if week == lastweek %}
+                    <a href="{{ lastweek|add:"-1" }}-{{ year }}"><button>{{ lastweek|add:"-1" }}</button></a>
+                {% endif %}
+                <a href="{{ lastweek }}-{{ year }}"><button>{{ lastweek }}</button></a>
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+<table id="result" class="table table-striped table-bordered table-hover">
+<thead>
+        <th>Мероприятие</th>
+        <th>Дата</th>
+        <th>ФИО</th>
+        <th>Группа</th>
+        <th>Место</th>
+        <th>Количество участников</th>
+</thead>
+<tbody>
+{% for result in results %}
+    <tr>
+        <td><a href="{% url 'event-detail' result.Event_id %}">{{ result.Event.Name }}</a> ({{ result.Event.Sport.Name }})</td>
+        <td>{{ result.Date }}</td>
+        <td><a href="{% url 'sportsman-detail' result.Sportsman_id %}">{{ result.Sportsman.FIO }}</a></td>
+        <td>{{ result.Group }}</td>
+        <td>{{ result.Place }}</td>
+        <td>{{ result.Competitors }}</td>
+    </tr>
+{% empty %}
+
+{% endfor %}
+</tbody>
+</table>
+
+{% endblock %}

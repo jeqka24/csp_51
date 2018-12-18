@@ -18,4 +18,13 @@ urlpatterns = [
     re_path(r'^results/?$', views.ResultsView.as_view(), name='results'),
 
     #    path('sportsman', include(views.SportsmanView().urls)),
+    re_path('^report/week/$', views.WeeklyReport.as_view(), name="report_weekly"),
+    re_path('^report/week/(?P<week>\d+)-(?P<year>\d+)$', views.WeeklyReport.as_view(), name="report_weekly"),
+    re_path('^report/quarter/$', views.QuaterlyReport.as_view(), name="report_quarterly"),
+    re_path('^report/quarter/(?P<quarter>\d+)-(?P<year>\d+)$', views.QuaterlyReport.as_view(), name="report_quarterly"),
+
+    re_path('^report/winter/(?P<id>\d+)?$', views.WinterSportReport, name="report_winter"),
+    re_path('^report/summer/(?P<id>\d+)?$', views.SummerSportReport, name="report_summer"),
+    re_path('^report/champions/(?P<id>\d+)?$', views.ChampionsReport, name="report_champions"),
 ]
+# .as_view()
