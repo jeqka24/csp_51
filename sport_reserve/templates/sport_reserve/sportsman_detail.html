@@ -30,13 +30,11 @@
     </tr>
 </table>
 
-    <div><br></div>
 {% if user.is_authenticated %}
-    <div><a href="#">Добавить еще один результат:&nbsp;<i class="fa fa-lg fa-plus-circle"></i></a></div>
     <div><br></div>
+    <div><a href="{% url 'admin:sport_reserve_result_add' %}?Sportsman={{ object.id }} ">Добавить еще один результат:&nbsp;<i class="fa fa-lg fa-plus-circle"></i></a></div>
 {% endif %}
 
-    <div><br></div>
     <h2>Результаты ({{ results_list.count }})</h2>
     <div><br></div>
 

@@ -1,23 +1,22 @@
 {% extends 'sport_reserve/base.html' %}
 {% block content %}
+    <style>
+        th { width:15%;}
+    </style>
     <h1><a href="{% url 'events' %}" alt="Вернуться к списку событий">События</a></h1>
 
     <table id="events">
     <tr>
-    <th>Название</th>
-        <td>{{ event.Name }}</td>
+    <th>Название</th><td>{{ event.Name }}</td>
     </tr>
     <tr>
-    <th>Место проведения</th>
-        <td>{{ event.Place }}</td>
+    <th>Место проведения</th><td>{{ event.Place }}</td>
     </tr>
     <tr>
-    <th>Вид спорта</th>
-        <td>{{ event.Sport }}</td>
+    <th>Вид спорта</th><td>{{ event.Sport }}</td>
     </tr>
     <tr>
-    <th>Тип соревнования</th>
-        <td>{{ event.Type }}</td>
+    <th>Тип соревнования</th><td>{{ event.Type }}</td>
     </tr>
     <tr>
     <th>Начало мероприятия</th>
@@ -29,7 +28,10 @@
     </tr>
     </table>
 
+{% if user.is_authenticated %}
     <div><br></div>
+    <div><a href="{% url 'admin:sport_reserve_result_add' %}?Event={{ event.id }} ">Добавить еще один результат:&nbsp;<i class="fa fa-lg fa-plus-circle"></i></a></div>
+{% endif %}
     <h2>Результаты ({{ results_list.count }})</h2>
     <div><br></div>
 

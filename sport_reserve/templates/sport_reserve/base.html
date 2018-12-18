@@ -80,7 +80,17 @@
   $(document).ready(function () {
   $('#result').DataTable(
       {
-            buttons: [ 'copy', 'excel', 'pdf' ],
+            dom: 'Bfrtip',
+            lengthMenu:[
+                [10, 30, -1],
+                ["10", "30", "Все"]
+            ],
+            buttons: [
+            'pageLength',
+            'copyHtml5',
+            'excelHtml5',
+            'csvHtml5',
+            'pdfHtml5', ],
 
             language: {
     "decimal":        "",

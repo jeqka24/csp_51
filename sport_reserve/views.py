@@ -125,7 +125,7 @@ class WeeklyReport(TemplateView):
 
         DateStart = datetime.datetime.strptime(" ".join([str(year), str(week), "1"]), '%G %V %u')
         DateEnd = datetime.datetime.strptime(" ".join([str(year), str(week), "7"]), '%G %V %u')
-        context['results'] = Result.objects.filter(Date__range=[DateStart, DateEnd]).order_by("Event__Sport__Name").order_by("-Date")
+        context['results'] = Result.objects.filter(Event__Sport__Priority__exact=True).filter(Date__range=[DateStart, DateEnd]).order_by("Event__Sport__Name").order_by("-Date")
         context['Date_start'] = DateStart.strftime("%G-%m-%d")
         context['Date_end'] = DateEnd.strftime("%G-%m-%d")
         context['weeks'] = range(1, 53)
@@ -162,7 +162,6 @@ class QuaterlyReport(TemplateView):
             3: (datetime.date(year, 10, 1), datetime.date(year, 12, 31)),
         }
 
-        print("DateEnd", " ".join([str(year), str(quarter*3+3), "31"]))
 
         DateStart, DateEnd = QTable[quarter]
 
