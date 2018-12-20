@@ -58,8 +58,8 @@ class Sportsman(Model):
 
 EVENTTYPE_CHOICES = (
     ('ТР', 'Тренировочные'),
-    ('МС', 'Всероссийские'),
-    ('ВС', 'Международные'),
+    ('МС', 'Международные'),
+    ('ВС', 'Всероссийские'),
 )
 
 
@@ -83,10 +83,9 @@ class Event(Model):
     Groups = ManyToManyField(Group, verbose_name="Группы",
                              help_text="Группы")
 
-    AssignedTrainers = ManyToManyField(Trainer, verbose_name="Назначенный тренер",
-                                       help_text="Назначенный тренер")
-    AssignedSportsmen = ManyToManyField(Sportsman, verbose_name="Назначенный спортсмен",
-                                        help_text="Назначенные спортсмены")
+
+    AssignedTrainers = ManyToManyField(Trainer, verbose_name="Назначенный тренер", help_text="Назначенный тренер", blank=True)
+    AssignedSportsmen = ManyToManyField(Sportsman, verbose_name="Назначенный спортсмен", help_text="Назначенные спортсмены", blank=True)
 
     Stage = CharField(verbose_name="Этап соревнований", null=True, blank=True, max_length=30)
     DateStart = DateField(verbose_name="Дата начала мероприятия")

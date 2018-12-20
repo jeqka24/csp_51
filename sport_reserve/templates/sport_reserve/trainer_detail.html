@@ -10,19 +10,24 @@
     <th>E-mail</th>
 </tr>
     <tr>
+        {% if user.is_authenticated %}
+        <td><a href="{% url 'admin:sport_reserve_trainer_change' object.id %} ">&nbsp;{{ object.FIO }}&nbsp;<i class="fa fa-lg fa-pencil"></i></a></td>
+        {% else %}
         <td>{{ object.FIO }}</td>
+        {% endif %}
         <td>{{ object.Phone1}}</td>
         <td>{{ object.Phone1}}</td>
         <td>{{ object.Email}}</td>
     </tr>
 </table>
 
-<h1>Результаты спортсменов, занимающиеся у данного тренера</h1>
+<h1>Результаты спортсменов, занимающихся у данного тренера</h1>
 <table id="result" class="display table table-sm table-nowrap table-hover">
 <thead>
     <th>ФИО</th>
     <th>Дата</th>
     <th>Мероприятие</th>
+    <th>Тип мероприятия</th>
     <th>Место</th>
     <th>Участников в группе</th>
 </thead>
@@ -30,8 +35,9 @@
 {% for result in result_list %}
     <tr>
         <td><a href="{% url 'sportsman-detail' result.Sportsman_id %}">{{ result.Sportsman.FIO }}</a></td>
-        <td>{{ result.Date }}</td>
+        <td>{{ result.Date|date }}</td>
         <td><a href="{% url 'event-detail' result.Event_id %}">{{ result.Event }}</a></td>
+        <td>{{ result.Event.Type }}</td>
         <td>{{ result.Place }}</td>
         <td>{{ result.Competitors }}</td>
     </tr>

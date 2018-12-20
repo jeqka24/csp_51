@@ -1,0 +1,40 @@
+{% extends 'sport_reserve/base.html' %}
+{% block content %}
+
+<h2>Спорт ({{ object_list.count }})</h2>
+<table class="table table-sm table-nowrap table-hover">
+<thead>
+    <th>Название</th>
+    <th>Приоритетность</th>
+    <th>Олимпийский</th>
+    <th>Зимний</th>
+</thead><tbody>
+        <tr>
+        <td><a href="{% url 'sport-detail' sport.id %}">{{ sport.Name }}</a></td>
+        <td>{{ object.Priority}}</td>
+        <td>{{ object.Olympic}}</td>
+        <td>{{ object.Winter}}</td>
+        </tr>
+</tbody>
+</table>
+
+<table class="table table-sm table-nowrap table-hover">
+<thead><th>Спортсмены</th></thead>
+{% for sportsman in sportsmen %}
+    <tr><td><a href="{% url 'sportsman-detail' sportsman.id %}">{{  sportsman.FIO }}</a></td></tr>
+{% empty %}
+    <tr><td>нет спортсменов</td></tr>
+{% endfor %}
+</table>
+
+<h2>Спортивные мероприятия</h2>
+<table class="table table-sm table-nowrap table-hover">
+<thead><th>Название</th><th>Начало</th><th>Конец</th></thead>
+{% for event in events %}
+    <tr><td><a href="{% url 'event-detail' event.id %}">{{  event.Name }}</a></td><td>{{ event.DateStart }}</td><td>{{ event.DateEnd }}</td></tr>
+{% empty %}
+    <tr><td>нет мероприятий</td></tr>
+{% endfor %}
+</table>
+
+{% endblock %}

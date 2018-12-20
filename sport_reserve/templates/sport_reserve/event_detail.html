@@ -7,7 +7,12 @@
 
     <table id="events">
     <tr>
-    <th>Название</th><td>{{ event.Name }}</td>
+    <th>Название</th>
+        {% if user.is_authenticated %}
+            <td><a href="{% url 'admin:sport_reserve_event_change' event.id %}">{{ event.Name }}&nbsp;<i class="fa fa-lg fa-pencil"></a></td>
+        {% else %}
+            <td>{{ event.Name }}</td>
+        {% endif %}
     </tr>
     <tr>
     <th>Место проведения</th><td>{{ event.Place }}</td>
@@ -30,7 +35,7 @@
 
 {% if user.is_authenticated %}
     <div><br></div>
-    <div><a href="{% url 'admin:sport_reserve_result_add' %}?Event={{ event.id }} ">Добавить еще один результат:&nbsp;<i class="fa fa-lg fa-plus-circle"></i></a></div>
+    <div><a href="{% url 'admin:sport_reserve_result_add' %}?Event={{ event.id }}&Date={{event.DateStart|date:"o-m-d"}} ">Добавить еще один результат:&nbsp;<i class="fa fa-lg fa-plus-circle"></i></a></div>
 {% endif %}
     <h2>Результаты ({{ results_list.count }})</h2>
     <div><br></div>

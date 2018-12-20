@@ -15,7 +15,12 @@
     <th>Физкультурно-спортивная организация</th>
 </tr>
     <tr>
-        <td><a href="{{ object.id }}">{{ object.FIO }}</a></td>
+        {% if user.is_authenticated %}
+        <td><a href="{% url 'admin:sport_reserve_sportsman_change' object.id %} ">&nbsp;{{ object.FIO }}&nbsp;<i class="fa fa-lg fa-pencil"></i></a></td>
+        {% else %}
+            <td><a href="{{ object.id }}">{{ object.FIO }}</a></td>
+        {% endif %}
+
         <td>{{ object.age}}</td>
         <td>{{ object.Sport.Name }}</td>
         <td>{{ object.Degree }}</td>

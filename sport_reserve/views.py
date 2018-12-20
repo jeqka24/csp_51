@@ -8,7 +8,7 @@ from django.db.models import Count
 
 from django.template.response import TemplateResponse
 
-from .models import Trainer, Sportsman, Event, Result
+from .models import Trainer, Sportsman, Event, Result, Sport
 
 import datetime
 
@@ -84,6 +84,22 @@ class ResultView(DetailView):
     model = Result
 
 
+class SportsView(ListView):
+    model = Sport
+
+#   annotate by
+    queryset = Sport.objects.order_by("-Priority").order_by("-Olympic").order_by("Name")
+
+
+class SportView(DetailView):
+    model = Sport
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['sportsmen'] = Sportsman.objects.filter(Sport=kwargs['object'])
+        context['events'] = Event.objects.filter(Sport=kwargs['object']).order_by("-DateEnd")
+        return context
+
 
 class indexView(TemplateView):
     template_name = "index.html"
@@ -125,7 +141,7 @@ class WeeklyReport(TemplateView):
 
         DateStart = datetime.datetime.strptime(" ".join([str(year), str(week), "1"]), '%G %V %u')
         DateEnd = datetime.datetime.strptime(" ".join([str(year), str(week), "7"]), '%G %V %u')
-        context['results'] = Result.objects.filter(Event__Sport__Priority__exact=True).filter(Date__range=[DateStart, DateEnd]).order_by("Event__Sport__Name").order_by("-Date")
+        context['results'] = Result.objects.filter(Date__range=[DateStart, DateEnd]).order_by("Event__Sport__Name").order_by("-Date")
         context['Date_start'] = DateStart.strftime("%G-%m-%d")
         context['Date_end'] = DateEnd.strftime("%G-%m-%d")
         context['weeks'] = range(1, 53)
@@ -174,22 +190,22 @@ class QuaterlyReport(TemplateView):
         return context
 
 # Зимние виды спорта за сезон
-def WinterSportReport(request):
+def WinterSportReport(request, id):
     pass
 
 
 # Летние виды спорта за сезон
-def SummerSportReport(request):
+def SummerSportReport(request, id):
     pass
 
 
 # Лучшие результаты за квартал
-def QuaterlyBestReport(request):
+def QuaterlyBestReport(request, id):
     pass
 
 
 # Отчет по призёрам ПР и спартакиад
-def ChampionsReport(request):
+def ChampionsReport(request, id):
     pass
 
 #

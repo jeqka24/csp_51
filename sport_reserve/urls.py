@@ -17,6 +17,9 @@ urlpatterns = [
     re_path(r'^result/(?P<pk>\d+)$', views.ResultView.as_view(), name='result-detail'),
     re_path(r'^results/?$', views.ResultsView.as_view(), name='results'),
 
+    re_path(r'^sport/(?P<pk>\d+)$', views.SportView.as_view(), name='sport-detail'),
+    re_path(r'^sports/?$', views.SportsView.as_view(), name='sports'),
+
     #    path('sportsman', include(views.SportsmanView().urls)),
     re_path('^report/week/$', views.WeeklyReport.as_view(), name="report_weekly"),
     re_path('^report/week/(?P<week>\d+)-(?P<year>\d+)$', views.WeeklyReport.as_view(), name="report_weekly"),
